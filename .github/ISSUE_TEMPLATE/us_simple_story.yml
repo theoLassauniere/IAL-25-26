@@ -17,28 +17,26 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: acceptance-criteria
-    attributes:
-      label: "🌟 Acceptance Criteria"
-      description: "Liste les critères d’acceptation sous forme de cases à cocher"
-      value: |
-        - [ ] Criteria 1: Describe the first acceptance criterion here.
-        - [ ] Criteria 2: Describe the second acceptance criterion here.
-        - [ ] Criteria 3: Describe additional criteria as needed.
-    validations:
-      required: true
+- type: checkboxes
+  id: acceptance-criteria
+  attributes:
+    label: "🌟 Acceptance Criteria"
+    description: "Coche les critères qui définissent la complétion"
+    options:
+      - label: "Criteria 1: Describe the first acceptance criterion here"
+      - label: "Criteria 2: Describe the second acceptance criterion here"
+      - label: "Criteria 3: Add additional criteria as needed"
 
-  - type: textarea
-    id: definition-of-done
-    attributes:
-      label: "✅ Definition of Done"
-      description: "Définis ce qui signifie que la fonctionnalité est terminée"
-      value: |
-        - [ ] All acceptance criteria are met.
-        - [ ] Code is reviewed and approved.
-        - [ ] Necessary tests are written and pass.
-        - [ ] Documentation is updated, if applicable.
-        - [ ] Feature is deployed to the [environment name].
-    validations:
-      required: true
+
+- type: checkboxes
+  id: definition-of-done
+  attributes:
+    label: "✅ Definition of Done"
+    description: "Coche quand la feature est prête"
+    options:
+      - label: "All acceptance criteria are met"
+      - label: "Code is reviewed and approved"
+      - label: "Necessary tests are written and pass"
+      - label: "Documentation is updated, if applicable"
+      - label: "Feature is deployed to the [environment name]"
+
