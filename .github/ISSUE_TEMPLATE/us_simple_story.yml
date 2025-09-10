@@ -1,0 +1,44 @@
+name: "🚀 Feature Request"
+description: "Décrire une nouvelle fonctionnalité sous forme de User Story"
+title: "[FR] "
+labels: ["feature"]
+assignees: []
+
+body:
+  - type: textarea
+    id: user-story
+    attributes:
+      label: "⭐ User Story"
+      description: "Décris ta demande sous forme de User Story"
+      value: |
+        As a [role],
+        I want [an action or feature],
+        So that [a reason or benefit].
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "🌟 Acceptance Criteria"
+      description: "Liste les critères d’acceptation sous forme de cases à cocher"
+      value: |
+        - [ ] Criteria 1: Describe the first acceptance criterion here.
+        - [ ] Criteria 2: Describe the second acceptance criterion here.
+        - [ ] Criteria 3: Describe additional criteria as needed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: "✅ Definition of Done"
+      description: "Définis ce qui signifie que la fonctionnalité est terminée"
+      value: |
+        - [ ] All acceptance criteria are met.
+        - [ ] Code is reviewed and approved.
+        - [ ] Necessary tests are written and pass.
+        - [ ] Documentation is updated, if applicable.
+        - [ ] Feature is deployed to the [environment name].
+    validations:
+      required: true
