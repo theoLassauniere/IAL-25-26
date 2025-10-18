@@ -1,0 +1,33 @@
+services:
+  ble-mock:
+    build:
+      context: ./ble-mock
+      dockerfile: Dockerfile
+    container_name: ble-mock
+    ports:
+      - "7070:7070"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  ecg-hr-generator:
+    build:
+      context: ./ecg-hr-generator
+      dockerfile: Dockerfile
+    container_name: ecg-hr-generator
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_WS_URL=ws://host.docker.internal:7070
+      - REACT_APP_API_URL=http://host.docker.internal:4000
