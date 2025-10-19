@@ -7,12 +7,14 @@ function App() {
 
   useEffect(() => {
     const ws = new WebSocket(WS_URL);
+
+    ws.onopen = () => console.log("✅ Connected to BLE Mock:", WS_URL);
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "heart_rate") setBpm(data.value);
     };
-    ws.onopen = () => console.log("Connected to BLE Mock:", WS_URL);
     ws.onclose = () => console.log("Disconnected from BLE Mock");
+
     return () => ws.close();
   }, []);
 
@@ -20,7 +22,9 @@ function App() {
     <div style={{ fontFamily: "sans-serif", textAlign: "center", marginTop: "2rem" }}>
       <h1>Capteur cardiaque mock</h1>
       {bpm ? (
-        <h2>Fréquence cardiaque : <span style={{ color: "red" }}>{bpm} bpm</span></h2>
+        <h2>
+          Fréquence cardiaque : <span style={{ color: "red" }}>{bpm} bpm</span>
+        </h2>
       ) : (
         <p>Connexion au capteur...</p>
       )}
