@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const ws = new WebSocket(WS_URL);
 
-    ws.onopen = () => console.log("✅ Connected to BLE Mock:", WS_URL);
+    ws.onopen = () => console.log("Connected to BLE Mock:", WS_URL);
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "heart_rate") setBpm(data.value);

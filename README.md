@@ -22,3 +22,14 @@ docker compose up --build
 ### 3. Accéder à l’application
 
 Une fois le build terminé, ouvrez votre navigateur sur http://localhost:3000
+
+## Ports et Services du POC
+
+| Service | Port Interne | Port Externe | Protocole | Description |
+|----------|---------------|---------------|------------|--------------|
+| frontend | 3000 | 3000 | HTTP | Interface utilisateur React (affichage du capteur cardiaque mock) |
+| ble-mock | 7070 | 7070 | WebSocket | Mock BLE simulant la connexion avec un capteur cardiaque |
+| ecg-hr-generator | 8080 | 8080 | HTTP / WS | Générateur de signaux ECG et fréquence cardiaque simulée |
+| mqtt-broker | 1883 | 1883 | MQTT (TCP) | Broker Mosquitto pour la communication inter-services |
+| mqtt-broker (WebSocket) | 9001 | 9001 | MQTT (WS) | Accès WebSocket au broker pour le frontend |
+| backend (à venir) | 4000 | 4000 | HTTP / MQTT | Service applicatif principal recevant les données du front |
