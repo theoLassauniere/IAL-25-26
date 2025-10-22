@@ -2,3 +2,5 @@ package-lock.json
 node_modules
 mqtt/log
 mqtt/data
+.idea
+*.log
