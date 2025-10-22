@@ -11,27 +11,16 @@ services:
       - ./mqtt/data:/mosquitto/data
       - ./mqtt/log:/mosquitto/log
 
-  ble-mock:
+  ble-ecg-mock:
     build:
-      context: ./ble-mock
+      context: ./ble-ecg-mock
       dockerfile: Dockerfile
-    container_name: ble-mock
+    container_name: ble-ecg-mock
     ports:
       - "7070:7070"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-
-  ecg-hr-generator:
-    build:
-      context: ./ecg-hr-generator
-      dockerfile: Dockerfile
-    container_name: ecg-hr-generator
-    ports:
-      - "8080:8080"
-    environment:
-      - NODE_ENV=development
-      - PORT=8080
 
   frontend:
     build:
