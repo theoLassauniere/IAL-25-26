@@ -1,0 +1,34 @@
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:2
+    container_name: mqtt-broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/config:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+
+  ble-ecg-mock:
+    build:
+      context: ./ble-ecg-mock
+      dockerfile: Dockerfile
+    container_name: ble-ecg-mock
+    ports:
+      - "7070:7070"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_WS_URL=ws://host.docker.internal:7070
+      - REACT_APP_API_URL=http://host.docker.internal:4000
