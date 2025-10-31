@@ -1,24 +1,25 @@
 package com.storageservice.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "heart_beats")
+@IdClass(HeartBeatId.class)
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class HeartBeat {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sensor_id", nullable = false)
     private int sensor_id;
 
-    @Column(name = "heart_beats", nullable = false)
-    private double heart_beats;
-
+    @Id
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
-}
 
+    @Column(name = "heart_beats")
+    private double heart_beats;
+}

@@ -21,7 +21,9 @@ public class HeartBeatController {
 
     @GetMapping
     public List<HeartBeat> getAll() {
-        return heartBeatStorageService.getAllHeartBeat();
+        List<HeartBeat> list = heartBeatStorageService.getAllHeartBeat();
+        list.forEach(System.out::println);
+        return list;
     }
 
     @PostMapping
