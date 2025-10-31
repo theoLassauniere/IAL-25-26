@@ -13,7 +13,7 @@ cd IAL-25-26
 
 ### 2. Lancer l’architecture complète avec Docker Compose
 
-Il faut avoir Docker et Docker Compose installés et executer :
+Il faut avoir Docker et Docker Compose installés et exécuter :
 
 ```bash
 docker compose up --build
@@ -21,7 +21,8 @@ docker compose up --build
 
 ### 3. Accéder à l’application
 
-Une fois le build terminé, ouvrez votre navigateur sur http://localhost:3000
+Une fois le build terminé, ouvrez votre navigateur sur http://localhost:3000, et voilà ! 
+Vous devriez voir l’interface utilisateur affichant les données du capteur cardiaque.
 
 ## Ports et Services du POC
 
