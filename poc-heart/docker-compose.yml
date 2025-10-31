@@ -32,3 +32,20 @@ services:
     environment:
       - REACT_APP_WS_URL=ws://host.docker.internal:7070
       - REACT_APP_API_URL=http://host.docker.internal:4000
+
+  timescaledb:
+    build:
+      context: ./db
+    container_name: timescaledb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=timescaledb
+    ports:
+      - "5400:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  timescale_data:
