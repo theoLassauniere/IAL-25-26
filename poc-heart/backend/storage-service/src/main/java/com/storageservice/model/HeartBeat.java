@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "heart_beats")
 @AllArgsConstructor
@@ -11,9 +13,12 @@ import lombok.NoArgsConstructor;
 public class HeartBeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstname;
-    private String lastname;
-    private String email;
+    private int sensor_id;
+
+    @Column(name = "heart_beats", nullable = false)
+    private double heart_beats;
+
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
 }
 
