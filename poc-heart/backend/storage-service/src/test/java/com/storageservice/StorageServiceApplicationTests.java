@@ -1,10 +1,10 @@
-package com.storageservice.demo;
+package com.storageservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class StorageServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
