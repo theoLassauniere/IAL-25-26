@@ -7,6 +7,7 @@ Les capteurs (montre connectée, capteur de glucose, etc.) prescrits par les mé
 Le système permet de prévenir les urgences, de suivre l’état de santé quotidien et de faciliter la communication entre médecins, infirmiers, patients et proches ainsi que la surveillance du système par les administrateurs.
 Les médecins peuvent y rédiger des rapports, créer des questionnaires et ajuster le suivi de leurs patients.
 L’application gère la collecte, l’analyse et la synthèse des données pour générer des alertes et notifications personnalisées, dans le respect de la confidentialité médicale.
+En cas d'urgence vitale (crise cardiaque, chutes...), le système est capable d'alerter les secours.
 Des administrateurs supervisent l’infrastructure et la gestion des accès.
 
 ## Utilisateurs
@@ -22,7 +23,6 @@ Installation et mise en service :
 
 Matériel et équipements :
 - La montre connectée et le capteur de glucose sont prescrits et fournis dans le cadre du dispositif médical.
-- Le capteur de glucose est activé ou installé sur demande du médecin, par un infirmier ou un proche via la notice d’installation.
 - Les capteurs sont calibrés en usine (usines françaises, unités de mesure françaises).
 - Il existe un stock d’avance pour les montres et capteurs afin d’éviter toute rupture d’approvisionnement.
 
@@ -84,10 +84,10 @@ Fréquence transmission Capteur/Téléphone :
 
 Fréquence des transmissions Téléphone/Backend :
 - Température : 1 valeur agrégée / 15 min
-- Fréquence cardiaque : 1 valeur agrégée / min
+- Fréquence cardiaque : 1 valeur agrégée / 5 min
 - Oxygène dans le sang : 1 valeur agrégée / 5 min
-- Pas : 1 valeur cumulative / h
-- Glucose : 1 valeur agrégée / 5 min
+- Pas : 1 valeur cumulative / jour
+- Glucose : 1 valeur agrégée / 15 min
 - Chute : transmission immédiate
 
 ## Découpage DDD
@@ -139,7 +139,7 @@ Exemple d'un context détaillé :
 
 ## Pourquoi ce choix d'architecture
 
-Nous avons choisi de réaliser une architecture en 2 parties : l’architecture frontend pour l'application du téléphone qui gère l’interface utilisateur, les seuils d’urgence mais aussi la réception des données des capteurs envoyées via bluetooth low energy et l’architecture backend dans le cloud pour la gestion de tous les aspects métiers de notre projet (surveillance des données biomédicale, analyse du bien-être globale, suivi du diabète, gestion des alertes, suivi médical, coordination des soins, historisation et traçabilité médicale, gestion des utilisateurs et des rôles, supervision fonctionnel et gestion de la sécurité des données).
+Nous avons choisi de réaliser une architecture en 2 parties : l’architecture frontend pour l'application du téléphone qui gère l’interface utilisateur, les seuils d’urgence mais aussi la réception des données des capteurs envoyées via bluetooth low energy et l’architecture backend dans le cloud pour la gestion de tous les aspects métiers de notre projet (surveillance des données biomédicale, analyse du bien-être globale, suivi du diabète, gestion des alertes, suivi médical, coordination des soins, historisation et traçabilité médicale, gestion des utilisateurs et des rôles, supervision fonctionnelle et gestion de la sécurité des données).
 
 Cette division entre les responsabilités du front et celles du cloud nous permet de mitiger les risques liés à la perte de connexion avec l’applicatif, permettant une certaine autonomie du système et offrant la possibilité aux patients d’être suivie et aider à tout moment et en tout lieu.
 
