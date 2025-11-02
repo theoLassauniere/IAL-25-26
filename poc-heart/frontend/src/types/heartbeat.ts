@@ -1,6 +1,6 @@
 export interface HeartBeat {
-  sensor_id: number;
+  sensorId: number;
   time: string; // ISO
-  heart_beats: number;
+  heartBeats: number;
 }
 

@@ -58,10 +58,10 @@ npm install
 L'URL du backend peut être configurée via une variable d'environnement. Créez un fichier `.env` à la racine du dossier frontend :
 
 ```env
-VITE_API_BASE_URL=http://localhost:8080
+VITE_API_BASE_URL=http://localhost:8081
 ```
 
-Si cette variable n'est pas définie, l'application utilisera `http://localhost:8080` par défaut.
+Si cette variable n'est pas définie, l'application utilisera `http://localhost:8081` par défaut.
 
 ### Lancement
 
@@ -90,36 +90,6 @@ Si le backend n'est pas accessible, l'application bascule automatiquement sur de
 
 ## Architecture du frontend
 
-### Organisation du code
-
-```
-src/
-├── App.tsx                    # Composant racine, gestion des onglets et du state global
-├── index.tsx                  # Point d'entrée React
-├── index.css                  # Styles de base (reset CSS)
-├── api/
-│   └── api.ts                 # Service d'appel à l'API avec gestion d'erreur et fallback
-├── components/
-│   ├── Sidebar.tsx            # Barre latérale de navigation
-│   ├── HeaderPatient.tsx      # En-tête affichant les infos patient
-│   ├── HeartBeatChart.tsx     # Graphique Chart.js pour la fréquence cardiaque
-│   └── PlaceholderPage.tsx    # Composant affiché pour les fonctionnalités non implémentées
-├── pages/
-│   └── HeartBeatPage.tsx      # Page complète pour le module cardiaque
-├── mock/
-│   ├── mockPatient.ts         # Patient fictif pour la démo
-│   └── mockHeartbeats.ts      # 80 points de données fictifs
-├── styles/
-│   ├── App.css
-│   ├── Sidebar.css
-│   ├── HeaderPatient.css
-│   ├── HeartBeatChart.css
-│   ├── HeartBeatPage.css
-│   └── PlaceholderPage.css    # Un fichier CSS par composant
-└── types/
-    └── heartbeat.ts           # Interface TypeScript pour les données cardiaques
-```
-
 ## Intégration avec le backend
 
 ### Endpoint utilisé
@@ -135,14 +105,14 @@ GET /api/heartbeats?sensorId={id}
 ```json
 [
   {
-    "sensor_id": 1,
+    "sensorId": 1,
     "time": "2025-11-02T14:05:00",
-    "heart_beats": 76.0
+    "heartBeats": 76.0
   },
   {
-    "sensor_id": 1,
+    "sensorId": 1,
     "time": "2025-11-02T14:06:00",
-    "heart_beats": 78.0
+    "heartBeats": 78.0
   }
 ]
 ```

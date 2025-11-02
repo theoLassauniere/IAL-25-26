@@ -20,7 +20,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 export default function HeartBeatChart({ data }: { data: HeartBeat[] }) {
   const labels = data.map(d => new Date(d.time));
-  const values = data.map(d => d.heart_beats);
+  const values = data.map(d => d.heartBeats);
 
   const stats = useMemo(() => {
     if (!values.length) return { avg: 0, min: 0, max: 0, last: 0 };
