@@ -21,6 +21,10 @@ public class HeartBeatStorageService {
         return heartBeatRepository.findAll();
     }
 
+    public List<HeartBeat> getHeartBeatsBySensorId(int sensorId) {
+        return heartBeatRepository.findBySensorId(sensorId);
+    }
+
     public HeartBeat saveHeartBeat(HeartBeat heartBeat) {
         return heartBeatRepository.save(heartBeat);
     }

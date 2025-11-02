@@ -1,0 +1,75 @@
+.sidebar {
+  width: 256px;
+  padding: 1rem;
+  border-right: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: #1f2937;
+}
+
+.sidebar-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.sidebar-section {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-patient-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  margin-top: 0.25rem;
+  border: none;
+  background-color: #e0f2fe;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.sidebar-disabled-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  background-color: transparent;
+  color: #9ca3af;
+  cursor: not-allowed;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.sidebar-disabled-patient-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  margin-top: 0.25rem;
+  border: none;
+  background-color: transparent;
+  color: #9ca3af;
+  cursor: not-allowed;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+

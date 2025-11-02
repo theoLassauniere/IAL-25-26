@@ -1,5 +1,6 @@
 package-lock.json
 node_modules
+dist
 poc-heart/mqtt/log
 poc-heart/mqtt/data
 .idea

@@ -14,12 +14,12 @@ public class HeartBeat {
 
     @Id
     @Column(name = "sensor_id", nullable = false)
-    private int sensor_id;
+    private int sensorId;
 
     @Id
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
     @Column(name = "heart_beats")
-    private double heart_beats;
+    private double heartBeats;
 }

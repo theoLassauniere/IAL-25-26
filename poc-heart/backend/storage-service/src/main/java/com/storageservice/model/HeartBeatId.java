@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HeartBeatId implements Serializable {
-    private int sensor_id;
+    private int sensorId;
     private LocalDateTime time;
 }

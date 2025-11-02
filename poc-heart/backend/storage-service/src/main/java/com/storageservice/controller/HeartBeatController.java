@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/heartbeat")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 public class HeartBeatController {
     private final HeartBeatStorageService heartBeatStorageService;
 
@@ -22,6 +23,13 @@ public class HeartBeatController {
     @GetMapping
     public List<HeartBeat> getAll() {
         List<HeartBeat> list = heartBeatStorageService.getAllHeartBeat();
+        list.forEach(System.out::println);
+        return list;
+    }
+
+    @GetMapping("/{sensorId}")
+    public List<HeartBeat> getBySensorId(@PathVariable int sensorId) {
+        List<HeartBeat> list = heartBeatStorageService.getHeartBeatsBySensorId(sensorId);
         list.forEach(System.out::println);
         return list;
     }
