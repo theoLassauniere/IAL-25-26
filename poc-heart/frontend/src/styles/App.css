@@ -1,0 +1,69 @@
+/* App Styles */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tab-bar {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.tab:hover {
+  background-color: #f3f4f6;
+}
+
+.active-tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #dbeafe;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 4px;
+  color: #1e40af;
+}
+
+.inactive-tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  color: #9ca3af;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f9fafb;
+}
+

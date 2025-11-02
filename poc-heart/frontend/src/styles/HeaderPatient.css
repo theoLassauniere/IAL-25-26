@@ -1,0 +1,48 @@
+/* Header Patient Styles */
+.header-patient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.header-left-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.header-name {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.header-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.header-button {
+  padding: 0.5rem 0.75rem;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
