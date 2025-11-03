@@ -137,10 +137,81 @@ Exemple d'un contexte détaillé :
 
 ![Schéma Focus Capteur User Synthèse](images\Schema-archi-back-cloud-user-synthese.png "Schéma Focus Capteur User Synthèse")
 
+## Choix pour les DB:
+
+### DB Capteur (Contexte : Monitoring)
+
+**Données stockées :** Données horodatées (IoT) brutes (fréquence cardiaque, glycémie, etc.) provenant des objets connectés.
+
+**Type de DB :** Time Series (TSDB) (TimescaleDB).
+
+**Pourquoi ce choix :**
+- Charge d'écriture : Flux constant et massif de données (3-4/min/utilisateur). Une TSDB est conçue pour ingérer des millions de points de données par seconde sans saturer, là où une base relationnelle classique souffrirait.
+- Charge de lecture : Synthèse utilisateur doit faire des calculs (moyenne, min, max) sur des périodes de temps. Les TSDB sont optimisées pour ce type de requêtes (AVG(), MAX() groupés par temps) et sont des milliers de fois plus rapides qu'une base SQL traditionnelle pour cela.
+- Stockage : Les TSDB offrent des bons taux de compression pour les données horodatées, ce qui réduit nos coûts de stockage sur le long terme.
+
+### DB User (Contexte : Identity)
+
+**Données stockées :** Données critiques et structurées : profils, identifiants de connexion, mots de passe hashés, rôles (patient, proche, médecin), permissions, et les relations entre eux.
+
+**Type de DB :** PostgreSQL (ou autre Relationnel SQL).
+
+**Pourquoi ce choix :**
+- Intégrité des Données (ACID) : Ce sont les données les plus sensibles. On a besoin de garanties transactionnelles fortes. Quand un utilisateur s'inscrit, la création de son profil et de ses identifiants doit être un bloc indivisible.
+- Données Relationnelles : La nature de nos données est relationnelle (un patient est lié à un proche, un médecin suit plusieurs patients). PostgreSQL gère ces clés étrangères et ces jointures.
+- Sécurité : PostgreSQL offre des mécanismes de sécurité robustes et éprouvés (comme le Row-Level Security) pour cloisonner l'accès aux données sensibles.
+
+### DB Rapport (Contexte : History / Care)
+
+**Données stockées :** Texte long, données semi-structurées : rapports d'incidents, synthèses médicales, logs d'événements, contenu des alertes.
+
+**Type de DB :** MongoDB (ou autre base NoSQL Document).
+
+**Pourquoi ce choix :**
+- Schéma Flexible : C'est la raison principale. Un rapport d'incident n'aura pas la même structure qu'une synthèse d'activité. Une base Document (stockage type JSON/BSON) permet de stocker ces différents objets sans avoir à définir un schéma rigide.
+- Évolutivité : Si le volume de rapports devient énorme, il est très simple de sharder une collection MongoDB sur plusieurs serveurs.
+- Nature des données : C'est idéal pour stocker les documents que notre application génère. Pas besoin de jointures complexes, juste on stocke et on récupére un rapport entier lié à un utilisateur.
+
+### DB Questionnaire (Contexte : Care)
+
+**Données stockées :** Formulaires structurés : réponses de l'utilisateur à des questionnaires (antécédents médicaux, habitudes de vie). Les données sont principalement des valeurs numéraires ou des choix prédéfinis.
+
+**Type de DB :** PostgreSQL (Relationnel SQL).
+
+**Pourquoi ce choix :**
+- Structure Claire : Un questionnaire est très structuré (une réponse appartient à une question et est liée à un user).
+- Faible Charge : Cette base sera peu utilisée (principalement en lecture, et en écriture une seule fois lors de l'inscription ou de mises à jour). Il n'y a aucun besoin de performance extrême.
+- Consolidation : Pour réduire les coûts et la complexité de maintenance, les tables de ce questionnaire peuvent vivre dans la même instance PostgreSQL que la DB User, en utilisant simplement un schéma logique différent (ex: schema_identity et schema_care).
+
 ## Pourquoi ce choix d'architecture
 
 Nous avons choisi de réaliser une architecture en 2 parties : l’architecture frontend pour l'application du téléphone qui gère l’interface utilisateur, les seuils d’urgence mais aussi la réception des données des capteurs envoyées via bluetooth low energy et l’architecture backend dans le cloud pour la gestion de tous les aspects métiers de notre projet (surveillance des données biomédicale, analyse du bien-être globale, suivi du diabète, gestion des alertes, suivi médical, coordination des soins, historisation et traçabilité médicale, gestion des utilisateurs et des rôles, supervision fonctionnelle et gestion de la sécurité des données).
 
 Cette division entre les responsabilités du front et celles du cloud nous permet de mitiger les risques liés à la perte de connexion avec l’applicatif, permettant une certaine autonomie du système et offrant la possibilité aux patients d’être suivie et aider à tout moment et en tout lieu.
 
-Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs et une communication HTTPS via une API Gateway pour transmettre et recevoir les données à afficher dans l’application. Ces choix sont motivés par la volonté de garder un accès en flux continu aux données récupérées depuis les capteurs et filtrés dans le front pour pouvoir les récupérer avec les services concernés et faire les traitements adéquats. La communication avec l’IHM se fait via une API REST classique suffisante pour la transmission des données agrégées du back vers le front.
+Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs et une communication HTTPS via une API Gateway pour transmettre et recevoir les données à afficher dans l’application.
+Ces choix sont motivés par la volonté de garder un accès en flux continu aux données récupérées depuis les capteurs et filtrés dans le front pour pouvoir les récupérer avec les services concernés et faire les traitements adéquats.
+La communication avec l’IHM se fait via une API REST classique suffisante pour la transmission des données agrégées du back vers le front.
+
+## Choix pour les Infrastructures Hardware
+
+L’infrastructure matérielle retenue vise à garantir la haute disponibilité, la scalabilité et la sécurité nécessaires à un dispositif médical critique. Dans le cas d’un déploiement pour un hôpital de taille moyenne (environ 500 patients suivis simultanément), l’infrastructure s’articule autour de trois niveaux : le matériel patient, la passerelle mobile, et le cluster cloud.
+
+### Matériel Patient
+
+Chaque patient dispose d’une montre connectée médicale (capteur optique PPG + accéléromètre 6 axes).
+Ces dispositifs communiquent via Bluetooth Low Energy (BLE 5.0) avec le smartphone du patient.
+Les capteurs respectent les standards ISO 13485 et IEC 60601-1 pour la conformité médicale.
+La montre a une autonomie de 3 à 5 jours.
+
+### Passerelle Mobile (Smartphone du Patient)
+
+Le smartphone sert de nœud de prétraitement et de transfert. Il doit disposer a minima d’un processeur ARM Cortex-A53 1.8 GHz, de 3 Go de RAM, et de 32 Go de stockage, avec Android 10+ et connectivité 4G/Wi-Fi.
+L’application locale gère :
+- le filtrage des données capteurs (élimination des valeurs aberrantes)
+- un buffer local (jusqu’à 48h de stockage en cas de perte réseau)
+- la transmission sécurisée des données via MQTT et HTTPS/REST vers le cloud
+
+### Infrastructure Cloud (Backend)
+
+Pour un hôpital gérant environ 500 patients simultanés, le cluster cloud est déployé sur 6 à 8 machines virtuelles (ou nœuds Kubernetes), réparties sur deux zones de disponibilité pour assurer une haute disponibilité et une tolérance aux pannes.
