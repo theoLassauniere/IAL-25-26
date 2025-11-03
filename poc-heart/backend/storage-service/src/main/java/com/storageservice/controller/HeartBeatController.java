@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/heartbeat")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
+@RequestMapping("/heartbeat")
+// cross origin could be only 8080 because of gateway but for test purpose we add also 5173 and 3000
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000", "http://localhost:8080"})
 public class HeartBeatController {
     private final HeartBeatStorageService heartBeatStorageService;
 
