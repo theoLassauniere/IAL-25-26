@@ -47,6 +47,21 @@ services:
       - timescale_data:/var/lib/postgresql/data
     restart: always
 
+  gateway-service:
+    build:
+      context: ./backend/gateway
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      - STORAGE_SERVICE_URL=http://storage-service:8081
+      - LISTING_SERVICE_URL=http://listinig-service:8082
+    depends_on:
+      - mqtt-broker
+      - storage-service
+    restart: unless-stopped
+
   storage-service:
     build:
       context: ./backend/storage-service
