@@ -68,6 +68,14 @@ export default function HeartBeatChart({ data }: { data: HeartBeat[] }) {
         },
         time: {
           tooltipFormat: 'dd/MM/yyyy HH:mm',
+          displayFormats: {
+            hour: 'HH:mm',
+            minute: 'HH:mm',
+            second: 'HH:mm:ss',
+            day: 'dd/MM',
+            week: 'dd/MM',
+            month: 'MM/yyyy'
+          }
         },
         ticks: {
           autoSkip: true,
