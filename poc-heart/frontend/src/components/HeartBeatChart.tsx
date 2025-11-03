@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import type { ChartOptions } from "chart.js";
 import { HeartBeat } from "../types/heartbeat";
+import { fr } from 'date-fns/locale';
 import "../styles/HeartBeatChart.css";
 
 import {
@@ -61,7 +62,9 @@ export default function HeartBeatChart({ data }: { data: HeartBeat[] }) {
       x: {
         type: 'time',
         adapters: {
-          date: {}
+          date: {
+            locale: fr
+          }
         },
         time: {
           tooltipFormat: 'dd/MM/yyyy HH:mm',
