@@ -19,8 +19,13 @@ import 'chartjs-adapter-date-fns';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, TimeScale, Legend);
 
 export default function HeartBeatChart({ data }: { data: HeartBeat[] }) {
-  const labels = data.map(d => new Date(d.time));
-  const values = data.map(d => d.heartBeats);
+  const now = new Date();
+  const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+  const recentData = data.filter(d => new Date(d.time) >= oneDayAgo);
+
+  const labels = recentData.map(d => new Date(d.time));
+  const values = recentData.map(d => d.heartBeats);
 
   const stats = useMemo(() => {
     if (!values.length) return { avg: 0, min: 0, max: 0, last: 0 };
@@ -55,12 +60,15 @@ export default function HeartBeatChart({ data }: { data: HeartBeat[] }) {
     scales: {
       x: {
         type: 'time',
+        adapters: {
+          date: {}
+        },
         time: {
-          unit: 'minute',
-          tooltipFormat: 'HH:mm',
-          displayFormats: {
-            minute: 'HH:mm'
-          }
+          tooltipFormat: 'dd/MM/yyyy HH:mm',
+        },
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 10,
         },
         grid: {
           display: true,
