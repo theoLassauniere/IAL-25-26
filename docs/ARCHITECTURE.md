@@ -85,7 +85,7 @@ Fréquence transmission Capteur/Téléphone :
 Fréquence des transmissions Téléphone/Backend :
 - Température : 1 valeur agrégée / 15 min
 - Fréquence cardiaque : 1 valeur agrégée / 5 min
-- Oxygène dans le sang : 1 valeur agrégée / 5 min
+- Oxygène dans le sang : 1 valeur agrégée / 15 min
 - Pas : 1 valeur cumulative / jour
 - Glucose : 1 valeur agrégée / 15 min
 - Chute : transmission immédiate
@@ -100,10 +100,10 @@ Processus couverts :
 - Prise en charge de la surveillance du diabètes pour les patients concernés
 - Signal d'alertes en cas d'urgences vitales
 - Avertissements et conseils remontés au patient et à tous ceux qui s'occupent de lui
-- Permettre un suivie des patients du médecin
-- Permettre la transmission du contexte médicale d'un patient à d'autres soignants
+- Permettre un suivi des patients par le médecin
+- Permettre la transmission du contexte médical d'un patient à d'autres soignants
 - Permettre de garder une trace des actions et incidents médicaux
-- Permettre aux admins le suivie de la production
+- Permettre aux admins le suivi de la production
 
 ![Liste Domaines DDD](images\Liste-domaines-ddd.png "Liste Domaines DDD")
 
@@ -111,7 +111,7 @@ Processus couverts :
 
 ![Légende Context Map](images\Context-map-legend-ddd.png "Légende Context Map")
 
-Exemple d'un context détaillé :
+Exemple d'un contexte détaillé :
 
 ![Schéma Focus Context Alerting Context](images\Context-alerting-ddd.png "Schéma Focus Context Alerting Context")
 
