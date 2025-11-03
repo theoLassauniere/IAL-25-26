@@ -1,5 +1,7 @@
 package com.listenerservice.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ListenerService {
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @Value("${mqtt.broker}")
     private String brokerUrl;
 
@@ -31,11 +34,11 @@ public class ListenerService {
 
             mqttClient.subscribe(topic, (topic, message) -> {
                 String payload = new String(message.getPayload());
-                System.out.println("📩 Message reçu sur le topic " + topic + " : " + payload);
+                System.out.println("Message reçu sur le topic " + topic + " : " + payload);
                 handleMessage(payload);
             });
 
-            System.out.println("✅ Abonné au topic: " + topic);
+            System.out.println("Abonné au topic: " + topic);
 
         } catch (MqttException e) {
             e.printStackTrace();
@@ -43,6 +46,15 @@ public class ListenerService {
     }
 
     private void handleMessage(String payload) {
-        System.out.println("Traitement du message: " + payload);
+        try {
+            JsonNode json = objectMapper.readTree(payload);
+            int sensorId = json.get("sensorId").asInt();
+            String time = json.get("time").asText();
+            double heartBeats = json.get("heartBeats").asDouble();
+
+            System.out.println("Capteur #" + sensorId + " | BPM: " + heartBeats + " | " + time);
+        } catch (Exception e) {
+            System.err.println("Erreur parsing: " + e.getMessage());
+        }
     }
 }
