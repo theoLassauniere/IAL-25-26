@@ -1,27 +1,5 @@
 # Frontend - Interface Médecin
 
-Interface de l'application permettant aux médecins de visualiser les données de santé de leurs patients en temps réel.
-
-## Vue d'ensemble
-
-L'interface médecin est une application React qui se connecte au backend pour récupérer et afficher les données des capteurs connectés portés par les patients. Dans le cadre de ce POC, nous avons implémenté complètement la visualisation de la fréquence cardiaque, tandis que les autres modules (température, glycémie, etc.) sont présents dans l'interface mais non connectés.
-
-### Périmètre fonctionnel
-
-**Fonctionnalités implémentées :**
-- Récupération des données de fréquence cardiaque depuis l'API backend
-- Visualisation graphique des battements cardiaques avec Chart.js
-- Affichage des statistiques (moyenne, min, max, dernière valeur)
-- Actualisation des données
-
-**Interface non-fonctionnelle :**
-- Les onglets température, glycémie, oxygène et activité sont visibles mais affichent un message indiquant qu'ils ne sont pas implémentés dans le POC
-- Permet de donner une vision plus complète de l'application finale lors de la démo
-
-## Stack technique
-
-### Choix technologiques
-
 **React + TypeScript**
 - Système de composants réutilisables et maintenables
 - TypeScript apporte la sécurité du typage statique
@@ -125,6 +103,16 @@ GET /api/heartbeats?sensorId={id}
 ### Données mock
 
 Le fichier `mock/mockHeartbeats.ts` génère dynamiquement 80 points de données espacés d'une minute, avec une variation sinusoïdale + bruit aléatoire pour simuler un rythme cardiaque réaliste. Cela permet de tester l'interface sans dépendre du backend.
+
+## Services (dossier src/services/)
+
+Le pipeline de données tourne automatiquement au chargement de l'app :
+- Récupère les données du capteur BLE Mock via WebSocket
+- Filtre les valeurs aberrantes (30-220 BPM, variation max 50 BPM)
+- Calcule une moyenne toutes les 30 secondes
+- Envoie vers la queue MQTT sur le topic `poc/bpm`
+
+L'interface affiche les données via l'API REST du backend - Interface Médecin
 
 ## Contribution au projet
 
