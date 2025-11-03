@@ -53,13 +53,24 @@ services:
       dockerfile: Dockerfile
     container_name: storage-service
     ports:
-      - "8081:8080"
+      - "8081:8081"
     environment:
       - DB_URL=jdbc:postgresql://timescaledb:5432/timescaledb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     depends_on:
       - timescaledb
+    restart: unless-stopped
+
+  listener-service:
+    build:
+      context: ./backend/listener-service
+      dockerfile: Dockerfile
+    container_name: listener-service
+    ports:
+      - "8082:8082"
+    environment:
+      - BROKER_URL=tcp://mqtt-broker:1883
     restart: unless-stopped
 
 volumes:
