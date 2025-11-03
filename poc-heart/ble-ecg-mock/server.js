@@ -28,7 +28,7 @@ function nextBPM() {
 function broadcastBPM() {
   const bpm = nextBPM();
   const packet = {
-    type: "heart_rate",
+    type: "poc/bpm",
     value: bpm,
     mode: currentMode.label,
     timestamp: new Date().toISOString(),
