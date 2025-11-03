@@ -2,7 +2,6 @@ services:
   mqtt-broker:
     image: eclipse-mosquitto:2
     container_name: mqtt-broker
-    restart: unless-stopped
     ports:
       - "1883:1883"
       - "9001:9001"
@@ -20,7 +19,6 @@ services:
       - "7070:7070"
     environment:
       - NODE_ENV=production
-    restart: unless-stopped
 
   frontend:
     build:
@@ -45,22 +43,6 @@ services:
       - "5400:5432"
     volumes:
       - timescale_data:/var/lib/postgresql/data
-    restart: always
-
-  storage-service:
-    build:
-      context: ./backend/storage-service
-      dockerfile: Dockerfile
-    container_name: storage-service
-    ports:
-      - "8081:8081"
-    environment:
-      - DB_URL=jdbc:postgresql://timescaledb:5432/timescaledb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-    depends_on:
-      - timescaledb
-    restart: unless-stopped
 
   gateway-service:
     build:
@@ -75,7 +57,30 @@ services:
     depends_on:
       - mqtt-broker
       - storage-service
-    restart: unless-stopped
+
+  storage-service:
+    build:
+      context: ./backend/storage-service
+      dockerfile: Dockerfile
+    container_name: storage-service
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:postgresql://timescaledb:5432/timescaledb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - timescaledb
+
+  listener-service:
+    build:
+      context: ./backend/listener-service
+      dockerfile: Dockerfile
+    container_name: listener-service
+    ports:
+      - "8082:8082"
+    environment:
+      - BROKER_URL=tcp://mqtt-broker:1883
 
 volumes:
   timescale_data:

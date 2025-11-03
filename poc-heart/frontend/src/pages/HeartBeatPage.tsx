@@ -20,6 +20,12 @@ export default function HeartBeatPage({ onDataRefresh }: { onDataRefresh: () => 
 
   useEffect(() => {
     load();
+
+    const interval = setInterval(() => {
+      load();
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -28,11 +34,6 @@ export default function HeartBeatPage({ onDataRefresh }: { onDataRefresh: () => 
         <h3 className="heartbeat-title">
           ❤️ Fréquence cardiaque
         </h3>
-        <div>
-          <button onClick={load} className="refresh-button" disabled={loading}>
-            {loading ? "⏳ Chargement..." : "🔄 Actualiser"}
-          </button>
-        </div>
       </div>
 
       {loading ? (

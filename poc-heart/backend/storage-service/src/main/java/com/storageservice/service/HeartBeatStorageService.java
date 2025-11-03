@@ -18,11 +18,11 @@ public class HeartBeatStorageService {
     }
 
     public List<HeartBeat> getAllHeartBeat() {
-        return heartBeatRepository.findAll();
+        return heartBeatRepository.findAllByOrderByTimeAsc();
     }
 
     public List<HeartBeat> getHeartBeatsBySensorId(int sensorId) {
-        return heartBeatRepository.findBySensorId(sensorId);
+        return heartBeatRepository.findBySensorIdOrderByTimeAsc(sensorId);
     }
 
     public HeartBeat saveHeartBeat(HeartBeat heartBeat) {

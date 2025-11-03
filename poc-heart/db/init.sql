@@ -12,9 +12,3 @@ SELECT create_hypertable('heart_beats', 'time', if_not_exists => TRUE);
 
 ALTER TABLE heart_beats
     ADD PRIMARY KEY (sensor_id, time);
-
--- Exemple d'insertion de données
-INSERT INTO heart_beats (time, sensor_id, heart_beats) VALUES
-('2024-01-01 00:00:00', 1, 72.5),
-('2024-01-01 00:01:00', 1, 75.0),
-('2024-01-01 00:02:00', 1, 73.8);

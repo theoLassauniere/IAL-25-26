@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import HeaderPatient from "./components/HeaderPatient";
 import HeartBeatPage from "./pages/HeartBeatPage";
 import PlaceholderPage from "./components/PlaceholderPage";
 import { mockPatient } from "./mock/mockPatient";
+import { heartBeatPipeline } from "./services/pipeline";
 import "./styles/App.css";
 
 function App() {
   const [selectedPatient] = useState(mockPatient);
   const [tab, setTab] = useState<'cardiac' | 'temp' | 'glucose' | 'oxygen' | 'activity'>('cardiac');
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+
+  useEffect(() => {
+    heartBeatPipeline.start();
+    return () => {
+      heartBeatPipeline.stop();
+    };
+  }, []);
 
   return (
     <div className="app-container">

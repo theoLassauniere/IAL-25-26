@@ -3,4 +3,3 @@ export interface HeartBeat {
   time: string; // ISO
   heartBeats: number;
 }
-
