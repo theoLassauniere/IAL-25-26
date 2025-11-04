@@ -1,8 +1,8 @@
 import { RawHeartBeatData } from "./receive";
 
-const MIN_BPM = 30;
+const MIN_BPM = 0;
 const MAX_BPM = 220;
-const MAX_VARIATION = 50;
+const MAX_VARIATION = 100;
 
 type FilteredDataListener = (data: RawHeartBeatData) => void;
 
