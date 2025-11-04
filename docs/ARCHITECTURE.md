@@ -214,4 +214,10 @@ L’application locale gère :
 
 ### Infrastructure Cloud (Backend)
 
-Pour un hôpital gérant environ 500 patients simultanés, le cluster cloud est déployé sur 6 à 8 machines virtuelles (ou nœuds Kubernetes), réparties sur deux zones de disponibilité pour assurer une haute disponibilité et une tolérance aux pannes.
+On fait l'hypothèse que notre système sera déployé pour un hôpital de taille moyenne, avec environ 500 patients suivis simultanément.
+
+L’infrastructure cloud est conçue pour être hautement disponible et scalable. C'est pourquoi on a choisi un modèle de 
+**cluster Kubernetes** : Un cluster déployé sur Google Azure, avec au moins 3 nœuds de calcul (4 vCPU, 16 Go RAM chacun) pour héberger les microservices backend.
+Chaque microservice est conteneurisé avec Docker, orchestré par Kubernetes pour la scalabilité automatique et la résilience.
+
+Kubernetes nous permet d’automatiser le déploiement, la mise à l’échelle et la gestion des conteneurs, tout en gardant un down time proche de zéro.
