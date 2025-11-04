@@ -189,7 +189,12 @@ Nous avons choisi de réaliser une architecture en 2 parties : l’architecture 
 
 Cette division entre les responsabilités du front et celles du cloud nous permet de mitiger les risques liés à la perte de connexion avec l’applicatif, permettant une certaine autonomie du système et offrant la possibilité aux patients d’être suivie et aider à tout moment et en tout lieu.
 
-Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs et une communication HTTPS via une API Gateway pour transmettre et recevoir les données à afficher dans l’application.
+Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs.
+Le protocole MQTT est minuscule, parfait pour des applications mobiles avec peu de batterie/bande passante.
+De plus, MQTT est conçu pour des réseaux instables et peu fiables (3G, 4G, LoRaWAN).
+Enfin, MQTT pousse activement les messages aux clients, ce qui est idéal pour des notifications temps réel.
+
+Une communication HTTPS est mise en place via une API Gateway pour transmettre et recevoir les données à afficher dans l’application.
 Ces choix sont motivés par la volonté de garder un accès en flux continu aux données récupérées depuis les capteurs et filtrés dans le front pour pouvoir les récupérer avec les services concernés et faire les traitements adéquats.
 La communication avec l’IHM se fait via une API REST classique suffisante pour la transmission des données agrégées du back vers le front.
 
