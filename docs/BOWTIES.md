@@ -1,6 +1,6 @@
 # Matrice des risques
 
-![Matrice de risque](./images/Matrice-des-risques.png "Matrice de risque")
+![Matrice de risque](images/Matrice_de_risque.png "Matrice de risque")
 
 # Bowties
 
