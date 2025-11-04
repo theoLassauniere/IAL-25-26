@@ -189,7 +189,12 @@ Nous avons choisi de réaliser une architecture en 2 parties : l’architecture 
 
 Cette division entre les responsabilités du front et celles du cloud nous permet de mitiger les risques liés à la perte de connexion avec l’applicatif, permettant une certaine autonomie du système et offrant la possibilité aux patients d’être suivie et aider à tout moment et en tout lieu.
 
-Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs et une communication HTTPS via une API Gateway pour transmettre et recevoir les données à afficher dans l’application.
+Pour communiquer entre ces 2 pans de notre architecture, nous avons choisi d’utiliser une queue MQTT pour la transmission des données filtrées des capteurs.
+Le protocole MQTT est minuscule, parfait pour des applications mobiles avec peu de batterie/bande passante.
+De plus, MQTT est conçu pour des réseaux instables et peu fiables (3G, 4G, LoRaWAN).
+Enfin, MQTT pousse activement les messages aux clients, ce qui est idéal pour des notifications temps réel.
+
+Une communication HTTPS est mise en place via une API Gateway pour transmettre et recevoir les données à afficher dans l’application.
 Ces choix sont motivés par la volonté de garder un accès en flux continu aux données récupérées depuis les capteurs et filtrés dans le front pour pouvoir les récupérer avec les services concernés et faire les traitements adéquats.
 La communication avec l’IHM se fait via une API REST classique suffisante pour la transmission des données agrégées du back vers le front.
 
@@ -214,4 +219,10 @@ L’application locale gère :
 
 ### Infrastructure Cloud (Backend)
 
-Pour un hôpital gérant environ 500 patients simultanés, le cluster cloud est déployé sur 6 à 8 machines virtuelles (ou nœuds Kubernetes), réparties sur deux zones de disponibilité pour assurer une haute disponibilité et une tolérance aux pannes.
+On fait l'hypothèse que notre système sera déployé pour un hôpital de taille moyenne, avec environ 500 patients suivis simultanément.
+
+L’infrastructure cloud est conçue pour être hautement disponible et scalable. C'est pourquoi on a choisi un modèle de 
+**cluster Kubernetes** : Un cluster déployé sur Google Azure, avec au moins 3 nœuds de calcul (4 vCPU, 16 Go RAM chacun) pour héberger les microservices backend.
+Chaque microservice est conteneurisé avec Docker, orchestré par Kubernetes pour la scalabilité automatique et la résilience.
+
+Kubernetes nous permet d’automatiser le déploiement, la mise à l’échelle et la gestion des conteneurs, tout en gardant un down time proche de zéro.
