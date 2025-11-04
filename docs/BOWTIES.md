@@ -1,3 +1,7 @@
+# Matrice des risques
+
+![Matrice de risque](./images/Matrice-des-risques.png "Le titre de mon image")
+
 # Bowties
 
 ## Risque 1 : Mauvaise configuration par le patient ou sa famille
