@@ -62,7 +62,7 @@ public class ListenerService {
             JsonNode json = objectMapper.readTree(payload);
             int sensorId = json.get("sensorId").asInt();
             LocalDateTime time = OffsetDateTime.parse(json.get("time").asText())
-                    .toLocalDateTime();
+                    .toLocalDateTime().plusHours(1); // To match time-zone
             double heartBeats = json.get("heartBeats").asDouble();
             System.out.println("Capteur #" + sensorId + " | BPM: " + heartBeats + " | " + time);
 
