@@ -49,14 +49,6 @@ export default function HeaderPatient({
           </div>
         </div>
       </div>
-      <div>
-        <button
-          className="header-button"
-          title="Fonctionnalité non disponible dans la démo"
-        >
-          Changer de patient
-        </button>
-      </div>
     </div>
   );
 }

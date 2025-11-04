@@ -14,7 +14,7 @@ Des administrateurs supervisent l’infrastructure et la gestion des accès.
 
 Médecin (client principal), infirmier, proches, personne âgée/patient, secours, Admin.
 
-## Hypothèses de travaille
+## Hypothèses de travail
 
 Installation et mise en service :
 - Le système peut être installé par le personnel médical (infirmier) ou par un proche à l’aide de la notice d’installation.

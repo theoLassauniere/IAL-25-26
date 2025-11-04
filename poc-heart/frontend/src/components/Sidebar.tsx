@@ -41,13 +41,6 @@ export default function Sidebar({ onSelectPatient }: Props) {
           disabled
           title="Fonctionnalité non disponible dans la démo"
         >
-          📈 Données biomédicales
-        </button>
-        <button
-          className="sidebar-disabled-button"
-          disabled
-          title="Fonctionnalité non disponible dans la démo"
-        >
           🧾 Rapports médicaux
         </button>
         <button
