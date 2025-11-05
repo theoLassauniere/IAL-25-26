@@ -3,7 +3,7 @@
 ## Résumé du projet
 
 Le projet vise à concevoir un système connecté de suivi de santé pour les personnes âgées, prescrit par les médecins.
-Les capteurs (montre connectée, capteur de glucose, etc.) prescrits par les médecins envoient leurs données via le smartphone du patient vers une plateforme cloud composée de micro-services sécurisés.
+Les capteurs (montre connectée, capteur de glucose, etc.) prescrits envoient leurs données via le smartphone du patient vers une plateforme cloud composée de micro-services sécurisés.
 Le système permet de prévenir les urgences, de suivre l’état de santé quotidien et de faciliter la communication entre médecins, infirmiers, patients et proches ainsi que la surveillance du système par les administrateurs.
 Les médecins peuvent y rédiger des rapports, créer des questionnaires et ajuster le suivi de leurs patients.
 L’application gère la collecte, l’analyse et la synthèse des données pour générer des alertes et notifications personnalisées, dans le respect de la confidentialité médicale.
@@ -12,7 +12,7 @@ Des administrateurs supervisent l’infrastructure et la gestion des accès.
 
 ## Utilisateurs
 
-Médecin (client principal), infirmier, proches, personne âgée/patient, secours, Admin.
+Médecin (client principal), infirmier, proches, personne âgée/patient, secours, admin.
 
 ## Hypothèses de travail
 
