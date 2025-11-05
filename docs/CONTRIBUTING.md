@@ -1,6 +1,4 @@
-# 🤝 Guide de contribution
-
-## 🚀 Étapes pour contribuer
+# Guide de contribution
 
 ### 1. Créer une branche associée à une issue
 

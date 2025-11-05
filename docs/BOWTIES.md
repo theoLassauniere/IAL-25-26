@@ -249,15 +249,7 @@ Ce risque concerne un échec dans le système responsable de l'encryption des do
 - Redondance du service : Avoir une infrastructure redondante (ex: multi-région) pour le service d'encryption afin qu'une panne locale ne soit pas un point de défaillance unique.
 - Monitoring et alertes : Superviser en permanence la santé du service d'encryption pour détecter toute anomalie avant qu'elle ne devienne critique.
 
-# Bowties visuels par cause
+# Bowties visuels
 
-[Erreur humaine](./images/bowties/erreur_humaine.pdf) 
-
-[Erreur réseau](./images/bowties/perte_de_reseau.pdf) 
-
-[Sécurité des données](./images/bowties/data_security.pdf) 
-
-[Défaillance logicielle ou matérielle](./images/bowties/def_logicielle_ou_mat.pdf) 
-
-[Surcharge de l’infrastructure](./images/bowties/surcharge_infra.pdf)
+![Bowties](./images/bowties.png) 
 
